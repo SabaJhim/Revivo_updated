@@ -1,0 +1,170 @@
+<!-- User view of seeing all shops -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile</title>
+
+
+  <!-- Font Awesome -->
+<link
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+rel="stylesheet"
+/>
+<!-- Google Fonts -->
+<link
+href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+rel="stylesheet"
+/>
+<!-- MDB -->
+<link
+href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.1/mdb.min.css"
+rel="stylesheet"
+/>
+  
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+</head>
+
+<body>
+  <%- include('userNav.ejs') %>
+  <div style="margin-top: 100px;">
+
+
+    
+
+
+  <div class="container userProfile">
+            <h2 class="font-weight-bold" style="justify-content: center; align-items: center; margin-left: 450px; ">
+                Welcome <%= userData[0].FIRST_NAME %>
+         </h2>
+ 
+         <div class="row">
+            <!-- <div class="col-md-4">
+                <form action="/app/openplace" method="GET">
+                    <button type="submit" class="btn btn-success op_place" id="op_place">Go to open market place</button>
+                </form>
+            </div> -->
+            <div class="col-md-6">
+                <div class="box" style="margin-left:10px">
+                    <!-- Trending Now!!. -->
+                </div>
+            </div>
+        </div>
+
+    <div class="row mt-4">
+      <div class="col-md-12">
+        <div style="justify-content: center; align-items: center; margin-left: 100px; ">
+          <form action="/app/filter_shops" method="GET" class="form-inline">
+            <input type="text" id="myAutocomplete" name="search" class="form-control" placeholder="Search" style="height: 50px; width: 100%; max-width: 800px;">
+            <button type="submit" class="btn btn-primary ml-2">Search</button>
+          </form>
+        </div>
+        
+      </div>
+    </div>
+
+
+    <div class="shop-user">
+
+
+
+
+
+      <!-- Start of the dynamic section -->
+      <div>&nbsp;</div>
+      <div>&nbsp;</div>
+
+      <% for (let i = 0; i < shops.length; i++) { %>
+        <div class="container-box">
+      <div class="row mb-4">
+        <!-- Shop Image -->
+        <div class="col-md-4">
+          <a href="/app/shopUser/all/<%= shops[i].SHOP_ID %>">
+            <img src="/<%= shops[i].IMAGES %>" alt="Shop <%= i + 1 %>" class="img-fluid">
+            <div class="card-body">
+              <h5 class="card-title"> <%= shops[i].NAME%></h5>
+            </div>
+          </a>
+        </div>
+
+        
+        <!-- Dress Images -->
+        <div class="col-md-8">
+  <div class="row">
+    <% for (let j = 1; j <= 3; j++) { %>
+    <div class="col-sm-4">
+      <a href="/app/shopUser/gender/?id=<%= shops[i].SHOP_ID %>&role=<%= role[j-1] %>">
+        <div class="card">
+          <img src="/<%= (
+  (j-1 === 0 && Object.keys(allMen[i]).length > 0) ?allMen[i].IMAGE :
+  (j-1 === 1 && Object.keys(allWomen[i]).length > 0) ? allWomen[i].IMAGE :
+  (j-1 === 2 && Object.keys(allChild[i]).length > 0) ? allChild[i].IMAGE :
+  'images/R.png'
+) %>" class="card-img-top">
+
+
+          <div class="card-body">
+            <h5 class="card-title"><%= role[j-1] %></h5>
+          </div>
+        </div>
+      </a>
+    </div>
+    <% } %>
+  </div>
+        </div>
+      </div>
+      <hr>
+    </div>
+      &nbsp;
+      &nbsp;
+      <% } %>
+
+      <!-- End of the dynamic section -->
+    </div>
+
+
+
+
+
+
+  </div>
+  </div>
+
+
+
+<!-- MDB -->
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.1/mdb.min.js"
+></script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+
+
+
+    
+
+<style>
+
+.container-box {
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); /* Add shadow */
+  border-radius: 15px; /* Add border radius */
+  margin: 20px; /* Add margin */
+  padding: 20px; /* Optionally add padding for inner content */
+}
+
+</style>
+</body>
+
+</html>
+
+
